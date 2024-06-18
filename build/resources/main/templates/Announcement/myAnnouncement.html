@@ -1,12 +1,73 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>My Announcements</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>My Announcements</h1>
+    <h1>나의 공고</h1>
     <form action="/announcement/addMyAnnouncement" method="post">
         <table>
             <thead>
@@ -21,21 +82,58 @@
             <tbody>
                 <!-- Iterate over the announcementList -->
                 <tr th:each="announcement : ${announcementList}">
-                    <td><input type="checkbox" name="selectedAnnouncements" th:value="${announcement.anmIndex}"/></td>
+<!--                    <td><input type="checkbox" name="selectedAnnouncements" th:value="${announcement.anmIndex}"/></td>-->
                     <td><a th:href="@{|/announcement/${announcement.anmIndex}|}" th:text="${announcement.anmName}"></a></td>
-                    <!-- Assuming that announcement.anmCpid.cpName is the company name -->
                     <td th:text="${announcement.anmCpid.cpName}"></td>
                     <td th:text="${#dates.format(announcement.anmStartDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td th:text="${#dates.format(announcement.anmEndDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>
             </tbody>
         </table>
-        <div>
-            <button type="submit">Process Selected Announcements</button>
+        <div class="button-container">
+            <button onclick="location.href='/'" type="button">메인</button>
         </div>
     </form>
-    <div>
-        <button onclick="location.href='/'" type="button">메인</button>
-    </div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>My Announcements</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/css/style.css"/>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>My Announcements</h1>-->
+<!--    <form action="/announcement/addMyAnnouncement" method="post">-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th>Select</th>-->
+<!--                    <th>Name</th>-->
+<!--                    <th>Company</th>-->
+<!--                    <th>Start Date</th>-->
+<!--                    <th>End Date</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--                &lt;!&ndash; Iterate over the announcementList &ndash;&gt;-->
+<!--                <tr th:each="announcement : ${announcementList}">-->
+<!--                    <td><input type="checkbox" name="selectedAnnouncements" th:value="${announcement.anmIndex}"/></td>-->
+<!--                    <td><a th:href="@{|/announcement/${announcement.anmIndex}|}" th:text="${announcement.anmName}"></a></td>-->
+<!--                    &lt;!&ndash; Assuming that announcement.anmCpid.cpName is the company name &ndash;&gt;-->
+<!--                    <td th:text="${announcement.anmCpid.cpName}"></td>-->
+<!--                    <td th:text="${#dates.format(announcement.anmStartDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+<!--                    <td th:text="${#dates.format(announcement.anmEndDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        <div>-->
+<!--            <button type="submit">Process Selected Announcements</button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    <div>-->
+<!--        <button onclick="location.href='/'" type="button">메인</button>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->

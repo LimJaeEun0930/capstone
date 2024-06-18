@@ -46,6 +46,21 @@ public class RegisterController {
     public String register_mentor_user_entrance(@ModelAttribute("user") User user, Model model) {
         return "register/register_mentor";
     }
+
+    @PostMapping("entrance/mentor")
+    public String register_mentor_post(@Validated @ModelAttribute User user, BindingResult bindingResult)
+    {
+        log.info("{}", user.getName());
+        log.info("{}", user.getBirth());
+        if (bindingResult.hasErrors()) {
+            return "register/register_mentor";
+        }
+        userService.join(user);
+
+        return "redirect:/login/entrance";
+    }
+
+
     @PostMapping("entrance/normal")
     public String register_post(@Validated @ModelAttribute User user, BindingResult bindingResult)
     {

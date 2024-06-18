@@ -1,16 +1,82 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Announcements</title>
+    <title>공고</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            margin: 0;
+        }
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn-container button {
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Announcements</h1>
-    <form th:action="@{/processAnnouncements}" method="post">
-        <input type="hidden" name="userId" th:value="${user.id}"/>
-        <input type="hidden" name="userName" th:value="${user.name}"/>
+    <h1>공고</h1>
+    <form th:action="@{/announcement/addMyAnnouncemnet}" method="post">
+        <div th:if="${user != null}">
+            <input type="hidden" name="userId" th:value="${user.id}"/>
+            <input type="hidden" name="userName" th:value="${user.name}"/>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -31,12 +97,11 @@
                 </tr>
             </tbody>
         </table>
-        <div>
-            <button type="submit">Process Selected Announcements</button>
+        <div class="btn-container">
+            <button type="submit">나의 공고 추가</button>
+            <button th:onclick="|location.href='@{/}'|" type="button">메인</button>
         </div>
     </form>
-    <div>
-        <button th:onclick="|location.href='@{/}'|" type="button">메인</button>
-    </div>
 </body>
 </html>
+

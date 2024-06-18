@@ -95,7 +95,7 @@
 
             <!-- 숨겨진 필드들 -->
             <input type="hidden" id="anmIndex" name="anmIndex" th:field="*{anmIndex}">
-            <input type="hidden" id="anmCpid" name="anmCpid" th:field="*{anmCpid}">
+            <input type="hidden" id="anmCpid" name="anmCpid" th:value="${company.cpId}">
 
             <button type="submit">추가</button>
         </form>

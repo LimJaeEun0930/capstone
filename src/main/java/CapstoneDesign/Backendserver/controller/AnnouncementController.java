@@ -110,7 +110,18 @@ public class AnnouncementController {
 //    return "redirect:/announcement";
 //}
     @PostMapping("write")
-    public String announcement_post(@Validated @ModelAttribute("announcement") Announcement announcement, BindingResult bindingResult, Model model) {
+    public String announcement_post(@Validated @ModelAttribute("announcement") Announcement announcement, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session == null) {
+            log.info("session is null");
+            return "home";
+        }
+        if (session.getAttribute(SessionConst.LOGIN_USER) instanceof Company) {
+            Company loginCompany = (Company) session.getAttribute(SessionConst.LOGIN_USER);
+            model.addAttribute("company", loginCompany);
+        }
+
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> System.out.println(error.toString()));
             return "Announcement/announcement_write";
